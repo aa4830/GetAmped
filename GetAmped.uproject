@@ -3,6 +3,16 @@
 	"EngineAssociation": "5.4",
 	"Category": "",
 	"Description": "",
+	"Modules": [
+		{
+			"Name": "GetAmped",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
+			]
+		}
+	],
 	"Plugins": [
 		{
 			"Name": "ModelingToolsEditorMode",
@@ -10,6 +20,14 @@
 			"TargetAllowList": [
 				"Editor"
 			]
+		},
+		{
+			"Name": "AdvancedSessions",
+			"Enabled": true
+		},
+		{
+			"Name": "AdvancedSteamSessions",
+			"Enabled": true
 		}
 	]
 }
