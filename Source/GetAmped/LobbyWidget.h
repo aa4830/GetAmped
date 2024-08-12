@@ -5,9 +5,12 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Border.h"
+#include "Components/TileView.h"
+#include "Components/ScrollBox.h"
 #include <Components/SlateWrapperTypes.h>
-#include "SlateCore.h"
 #include "Components/Button.h"
+#include "Components/Image.h"
+#include "Components/EditableText.h"
 #include "LobbyWidget.generated.h"
 /**
  * 
@@ -23,8 +26,20 @@ protected:
     UFUNCTION()
     void OnStartButtonClicked();
 
-    UFUNCTION(BlueprintCallable, Category = "Console")
+    UFUNCTION()
+    void OnReadyButtonClicked();
+
+    UFUNCTION(BlueprintCallable)
     void ExecuteConsoleCommand(const FString& Command);
+
+    UFUNCTION()
+    void OnChatTextCommitted(const FText& Text, ETextCommit::Type CommitMethod);
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    TSubclassOf<UUserWidget> MyWidgetClass;
+
+    UFUNCTION(BlueprintCallable)
+    void AddWidgetToScrollBox(FText Text, FString MyUserName);
 
 public:
     UPROPERTY(meta = (BindWidget))
@@ -33,6 +48,46 @@ public:
     UPROPERTY(meta = (BindWidget))
     UButton* Start_Button;
 
+    UPROPERTY(meta = (BindWidget))
+    UButton* Ready_Button;
+
+    UPROPERTY(meta = (BindWidget))
+    UImage* Ready_Image;
+
+    UPROPERTY(meta = (BindWidget))
+    UTileView* Player_Tile;
+
+    UPROPERTY(meta = (BindWidget))
+    UEditableText* Chat_EditableText;
+
+    UPROPERTY(meta = (BindWidget))
+    UScrollBox* Chat_ScrollBox;
+
     UFUNCTION(BlueprintCallable, Category = "UI")
     void SetStartBoardVisibility(ESlateVisibility isVisible);
+
+    UFUNCTION()
+    void UpdateTextAndImage();
+
+    UFUNCTION()
+    void UpdateChat(FText Text, FString MyUserName);
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+    TSubclassOf<class ULobbyPlayerWidget> LobbyPlayerWidgetClass;
+};
+
+class MyFlipFlop
+{
+private:
+    bool bIsATurn;
+
+public:
+    MyFlipFlop() : bIsATurn(true) {}
+
+    bool FlipFlop()
+    {
+        bool CurrentState = bIsATurn;
+        bIsATurn = !bIsATurn;
+        return CurrentState;
+    }
 };
