@@ -38,6 +38,7 @@ void ULobbyWidget::OnStartButtonClicked()
 {
     FString Command = TEXT("servertravel GetAmped_Level");
     ExecuteConsoleCommand(Command);
+
 }
 
 void ULobbyWidget::OnReadyButtonClicked()
@@ -83,7 +84,7 @@ void ULobbyWidget::OnChatTextCommitted(const FText& Text, ETextCommit::Type Comm
 }
 void ULobbyWidget::UpdateChat(FText Text, FString MyUserName)
 {
-    
+    UE_LOG(LogTemp, Warning, TEXT("Hello, Unreal Engine!"));
 }
 void ULobbyWidget::AddWidgetToScrollBox(FText Text, FString MyUserName)
 {
@@ -111,27 +112,5 @@ void ULobbyWidget::SetStartBoardVisibility(ESlateVisibility isVisible)
     if (StartBoard != nullptr)
     {
         StartBoard->SetVisibility(isVisible);
-    }
-}
-
-void ULobbyWidget::UpdateTextAndImage()
-{
-    if (Player_Tile != nullptr)
-    {
-        Player_Tile->ClearListItems();
-
-        UWorld* World = GetWorld();
-        TArray<AActor*> PlayerStates;
-        UGameplayStatics::GetAllActorsOfClass(World, ALobbyMenuPlayerState::StaticClass(), PlayerStates);
-        for (AActor* Actor : PlayerStates)
-        {
-
-            ALobbyMenuPlayerState* PlayerState = Cast<ALobbyMenuPlayerState>(Actor);
-            ULobbyPlayerWidget* NewItem = CreateWidget<ULobbyPlayerWidget>(GetWorld(), ULobbyPlayerWidget::StaticClass());
-            if (NewItem != nullptr)
-            {
-                Player_Tile->AddItem(NewItem);
-            }
-        }
     }
 }

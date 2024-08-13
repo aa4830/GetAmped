@@ -14,7 +14,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnEventDispatcher);
 
-UCLASS()
+UCLASS(Blueprintable)
 class GETAMPED_API ALobbyMenuPlayerState : public APlayerState
 {
 	GENERATED_BODY()
@@ -30,7 +30,7 @@ public:
 	void SavePlayerName(const FString& NewUserName);
 
 
-	UPROPERTY(ReplicatedUsing = OnRep_UserName)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, ReplicatedUsing = OnRep_UserName)
 	FString UserName;
 
 	UPROPERTY(BlueprintAssignable)

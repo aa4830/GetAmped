@@ -54,7 +54,7 @@ public:
     UPROPERTY(meta = (BindWidget))
     UImage* Ready_Image;
 
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
     UTileView* Player_Tile;
 
     UPROPERTY(meta = (BindWidget))
@@ -66,7 +66,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "UI")
     void SetStartBoardVisibility(ESlateVisibility isVisible);
 
-    UFUNCTION()
+    UFUNCTION(BlueprintImplementableEvent, Category = "Custom")
     void UpdateTextAndImage();
 
     UFUNCTION()
